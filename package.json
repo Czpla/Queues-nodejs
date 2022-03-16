@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bull-board/express": "^3.10.0",
     "bull": "^4.7.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

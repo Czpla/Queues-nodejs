@@ -10,8 +10,9 @@ export default {
             password
         };
 
-        // Adicioanar envio de e-mail a fila
-        await Queue.add({ user });
+        await Queue.add('RegistrationMail', { user });
+
+        await Queue.add('SecondJob');
 
         return res.json(user);
     }
