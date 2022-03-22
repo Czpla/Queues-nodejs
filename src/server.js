@@ -2,8 +2,9 @@ import 'dotenv/config';
 import express from "express";
 
 import UserController from './app/controllers/UserController';
-import createBullBoard from '@bull-board/api'
-import ExpressAdapter from '@bull-board/express';
+import { createBullBoard } from '@bull-board/api'
+import { ExpressAdapter } from '@bull-board/express';
+import { BullAdapter } from '@bull-board/api/bullAdapter';
 
 import Queue from './app/lib/Queue';
 
@@ -11,12 +12,12 @@ const app = express();
 
 const serverAdapter = new ExpressAdapter();
 
-const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
-    queues: Queue.queues.map(queue => queue.bull),
+serverAdapter.setBasePath('/admin/queues')
+
+createBullBoard({
+    queues: Queue.queues.map(queue => new BullAdapter(queue.bull)),
     serverAdapter:serverAdapter
 });
-
-// BullBoard. (Queue.queues.map(queue => queue.bull));
 
 app.use(express.json());
 
